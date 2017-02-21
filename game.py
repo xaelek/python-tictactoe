@@ -14,7 +14,6 @@ def choose_move(board):
                 valid = False
             else:
                 print 'That space is taken! Choose another position.'
-                print board[int(x)][int(y)] == State.Blank
     return int(x), int(y)
 
 
@@ -33,21 +32,28 @@ def check_win(board, x, y):
 
 def main():
     boardObject = Board()
-    newBoard = boardObject.create_board(3)
+    size = raw_input('Enter size of board to play: ')
+    newBoard = boardObject.create_board(int(size))
     count = 0
-    while count != 9:
+    while True:
         x, y = choose_move(newBoard)
         count += 1
         if count % 2 == 0:
             newBoard[x][y] = State.Cross
+            boardObject.print_board(newBoard)
             if check_win(newBoard, x, y):
                 print 'Game winner for X!'
+                break
         else:
             newBoard[x][y] = State.Circle
+            boardObject.print_board(newBoard)
             if check_win(newBoard, x, y):
                 print 'Game winner for O!'
-        boardObject.print_board(newBoard)
-    print 'Game was a draw!'
+                break
+        if count == int(size) ** 2:
+            print 'Game was a draw!'
+            boardObject.print_board(newBoard)
+            break
 
 
 main()

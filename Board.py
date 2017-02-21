@@ -1,4 +1,5 @@
 from enum import Enum
+from copy import deepcopy
 
 
 class Board():
@@ -7,7 +8,8 @@ class Board():
         return [[State(State.Blank) for x in range(size)] for y in range(size)]
 
     def print_board(self, board):
-        for x in board:
+        newBoard = deepcopy(board)
+        for x in newBoard:
             if len(x) == 3:
                 for y in x:
                     if y == State.Cross:
